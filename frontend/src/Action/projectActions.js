@@ -36,13 +36,13 @@ export const uploadProject = (formData) => async (dispatch) => {
   }
 };
 
-export const updateProject = (formData, id) => async (dispatch) => {
+export const updateProject = (formData) => async (dispatch) => {
   try {
     dispatch({
       type: PROJECT_UPDATE_REQUEST,
     });
 
-    const { data } = await axios.put(`/project/${id}`, formData);
+    const { data } = await axios.put("/project/update", formData);
 
     dispatch({
       type: PROJECT_UPDATE_SUCCESS,

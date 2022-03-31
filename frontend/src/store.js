@@ -15,7 +15,7 @@ const reducer = combineReducers({
   addProject: addProjectReducer,
   allProject: allProjectReducer,
   deleteProject: projectDeleteReducer,
-  updateProject: updateProjectReducer,
+  updatedProject: updateProjectReducer,
 });
 const getUserInfoFromLocalStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))

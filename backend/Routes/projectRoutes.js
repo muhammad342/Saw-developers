@@ -22,6 +22,6 @@ var upload = multer({ storage: storage });
 router.post("/addProject", upload.single("projectImage"), addProject);
 router.get("/allProject", allProject);
 router.delete("/:id", deleteProject);
-router.put("/:id", upload.single("projectImage"), updateProject);
+router.put("/update", upload.single("projectImage"), updateProject);
 
 export default router;

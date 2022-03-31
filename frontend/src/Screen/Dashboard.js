@@ -43,7 +43,7 @@ import {
 const Dashboard = () => {
   const [name, setName] = useState("");
   const [detail, setDetail] = useState("");
-  const [id, setId] = useState("");
+  const [projectId, setProjectId] = useState("");
   const [visible, setVisible] = useState(false);
   const [uploadedFileName, setUploadedFileName] = useState(null);
   const [projectImage, setProjectImage] = useState("");
@@ -53,6 +53,8 @@ const Dashboard = () => {
   const { projects, errors } = allProject;
   const addProject = useSelector((state) => state.addProject);
   const { load, project, err } = addProject;
+  const updatedProject = useSelector((state) => state.updatedProject);
+  const { loading: updateLoading } = updatedProject;
   const deleteProject = useSelector((state) => state.deleteProject);
   const { success: successDelete } = deleteProject;
   const userLogin = useSelector((state) => state.userLogin);
@@ -60,7 +62,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(displayAllProject());
-  }, [dispatch, load, successDelete]);
+  }, [dispatch, load, successDelete, updateLoading]);
   const handleDisplayFileDetails = () => {
     inputRef.current?.files &&
       setUploadedFileName(inputRef.current.files[0].name);
@@ -84,20 +86,22 @@ const Dashboard = () => {
     setName(product.name);
     setDetail(product.detail);
     setProjectImage(product.projectImage);
-    setId(product._id);
+    setProjectId(product._id);
     console.log(product._id);
-    console.log(id);
+    console.log(projectId);
     setVisible(true);
   };
 
   const submitUpdate = (e) => {
     e.preventDefault();
-
+    console.log("called");
     const formData = new FormData();
     formData.append("projectImage", projectImage, projectImage.name);
     formData.append("name", name);
     formData.append("detail", detail);
-    dispatch(updateProject(id, formData));
+    formData.append("_id", projectId);
+    dispatch(updateProject(formData));
+    setVisible(false);
   };
   const DeleteHandler = (id) => {
     if (window.confirm("Are you sure?")) {
@@ -336,7 +340,10 @@ const Dashboard = () => {
             <CButton color='secondary' onClick={() => setVisible(false)}>
               Close
             </CButton>
-            <CButton color='primary'> upload project</CButton>
+            <CButton color='primary' onClick={submitUpdate}>
+              {" "}
+              Update project
+            </CButton>
           </CModalFooter>
         </CModal>
       </Container>

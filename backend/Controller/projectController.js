@@ -21,7 +21,7 @@ const addProject = asyncHandler(async (req, res) => {
 const updateProject = asyncHandler(async (req, res) => {
   const { name, detail } = req.body;
 
-  const project = await Project.findById(req.params.id);
+  const project = await Project.findById(req.body._id);
   if (project) {
     project.name = name;
     project.detail = detail;
