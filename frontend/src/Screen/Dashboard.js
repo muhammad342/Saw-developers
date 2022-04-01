@@ -248,7 +248,8 @@ const Dashboard = () => {
                     <td>{product.name}</td>
                     <td>
                       <Image
-                        className='roundedCircle'
+                        fluid
+                        thumbnail
                         style={{
                           width: "7rem",
                           height: "7rem",
